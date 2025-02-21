@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GoBike</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      @keyframes circle-in-hesitate {
+            0% {
+              clip-path: circle(0%);
+              
+            }
+            50% {
+              clip-path: circle(100%);
+              
+            }
+            
+            100% {
+              clip-path: circle(150%);
+              
+            }
+          }
+/* @keyframes op{
+    0% {
+        transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+} */
+
+[transition-style="in:circle:hesitate"] {
+    animation: circle-in-hesitate 1.5ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+        .chart-container {
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.chart-header {
+    background-color: #2b2b2b;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Bars */
+.chart-bars {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 150px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.bar {
+    width: 50px;
+    background-color: #333;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+/* Highlight Largest Bar */
+
+
+/* Show Numbers on Bars */
+.bar::after {
+    content: attr(data-value);
+    position: absolute;
+    bottom: 10px;
+    font-size: 16px;
+}
+
+/* Footer */
+.chart-footer {
+    margin-top: 15px;
+    color: #777;
+    font-size: 14px;
+    font-weight: bold;
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000000;
+            animation: circle-in-hesitate 1.5ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .app-container {
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            color: white;
+            text-align: center;
+           
+            position: relative;
+            background: url('https://i.pinimg.com/736x/dd/b4/6b/ddb46b9f2c7b6a91ffef4bf19ca6e49b.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: 100;
+            animation: op 2s  alternate ease-in-out;
+        }
+        .logo span {
+            color: #ffffff;
+        }
+        .tagline {
+            font-size: 35px;
+    font-weight: bold;
+    text-align: left;
+    width: 80%;
+    margin-left: 5%;
+    margin-bottom: 10%;
+    line-height: 1.4;
+    animation: op 2s  alternate ease-in-out;
+        }
+        .highlight {
+            color:#97D4FF;
+        }
+        .bottom-section {
+            width: 90%;
+            max-width: 400px;
+            height: 80px;
+            background: rgba(94, 94, 94, 0.15);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 50px ;
+            animation: op 2s ease-in;
+        }
+        .slider-button {
+            width: 70px;
+            height: 70px;
+            background: #ffffff62;
+            border-radius: 20px;
+            position: absolute;
+            left: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .bottom-section.active .slider-button {
+            left: calc(100% - 70px);
+            background-color: #696969;
+            z-index: 1;
+        }
+
+        .button-text {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+        }
+        .bottom-section.active .button-text, .arrows span {
+            opacity: 0;
+        }
+        
+        .icon {
+            font-size: 24px;
+            color: rgb(241, 238, 238);
+        }
+        .arrows {
+            display: flex;
+            gap: 3px;
+        }
+        .arrows span {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: fadeArrows 1.2s infinite alternate;
+        }
+        .arrows span:nth-child(2) { animation-delay: 0.2s; }
+        .arrows span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes fadeArrows {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        .ku{
+            display: flex
+;
+    flex-direction: column;
+    width: 100;
+    height: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+        }
+        .ju{
+            height: 100%;
+    display: flex
+;width: 100%;
+align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgb(250, 248, 249);
+    background: linear-gradient(171deg, rgb(250 248 249 / 0%) 0%, rgba(11, 0, 11, 1) 100%);
+    padding: 20px;
+        }
+    
+    </style>
+     <style>
+        * {
+     border: 0;
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+ }
+ :root {
+     --hue: 223;
+     --bg: hsl(var(--hue),90%,90%);
+     --fg: hsl(0deg 0% 100%);
+     --primary: #97D4FF;
+     --trans-dur: 0.3s;
+     font-size: calc(16px + (32 - 16) * (100vw - 320px) / (2560 - 320));
+ }
+ body {
+   
+     color: var(--fg);
+     display: flex;
+     font: 1em/1.5 sans-serif;
+     height: 100vh;
+     transition:
+         background-color var(--trans-dur),
+         color var(--trans-dur);
+         display: flex;
+         justify-content: center;
+
+        }
+
+ .bike {
+     display: block;
+     margin: auto;
+     width: 7em;
+     height: auto;
+     position: absolute;
+    top: 50%;
+    left: -100px; 
+     transform: translateY(-50%);
+    animation: moveToCenter 700ms ease-out forwards;
+ }
+
+ @keyframes moveToCenter {
+    0% {
+        left: -100px; /* Start off-screen */
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+ .bike__body,
+ .bike__front,
+ .bike__handlebars,
+ .bike__pedals,
+ .bike__pedals-spin,
+ .bike__seat,
+ .bike__spokes,
+ .bike__spokes-spin,
+ .bike__tire {
+     animation: bikeBody 1s ease-in-out infinite;
+     stroke: var(--primary);
+     transition: stroke var(--trans-dur);
+ }
+ .bike__front {
+     animation-name: bikeFront;
+ }
+ .bike__handlebars {
+     animation-name: bikeHandlebars;
+ }
+ .bike__pedals {
+     animation-name: bikePedals;
+ }
+ .bike__pedals-spin {
+     animation-name: bikePedalsSpin;
+ }
+ .bike__seat {
+     animation-name: bikeSeat;
+ }
+ .bike__spokes,
+ .bike__tire {
+     stroke: currentColor;
+ }
+ .bike__spokes {
+     animation-name: bikeSpokes;
+ }
+ .bike__spokes-spin {
+     animation-name: bikeSpokesSpin;
+ }
+ .bike__tire {
+     animation-name: bikeTire;
+ }
+ 
+ /* Dark theme */
+ @media (prefers-color-scheme: dark) {
+     :root {
+         --bg: hsl(var(--hue),90%,10%);
+         
+     }
+ }
+ 
+ /* Animations */
+ @keyframes bikeBody {
+     from { stroke-dashoffset: 79; }
+     33%,
+     67% { stroke-dashoffset: 0; }
+     to { stroke-dashoffset: -79; }
+ }
+ @keyframes bikeFront {
+     from { stroke-dashoffset: 19; }
+     33%,
+     67% { stroke-dashoffset: 0; }
+     to { stroke-dashoffset: -19; }
+ }
+ @keyframes bikeHandlebars {
+     from { stroke-dashoffset: 10; }
+     33%,
+     67% { stroke-dashoffset: 0; }
+     to { stroke-dashoffset: -10; }
+ }
+ @keyframes bikePedals {
+     from {
+         animation-timing-function: ease-in;
+         stroke-dashoffset: -25.133;
+     }
+     33%,
+     67% {
+         animation-timing-function: ease-out;
+         stroke-dashoffset: -21.991;
+     }
+     to {
+         stroke-dashoffset: -25.133;
+     }
+ }
+ @keyframes bikePedalsSpin {
+     from { transform: rotate(0.1875turn); }
+     to { transform: rotate(3.1875turn); }
+ }
+ @keyframes bikeSeat {
+     from { stroke-dashoffset: 5; }
+     33%,
+     67% { stroke-dashoffset: 0; }
+     to { stroke-dashoffset: -5; }
+ }
+ @keyframes bikeSpokes {
+     from {
+         animation-timing-function: ease-in;
+         stroke-dashoffset: -31.416;
+     }
+     33%,
+     67% {
+         animation-timing-function: ease-out;
+         stroke-dashoffset: -23.562;
+     }
+     to {
+         stroke-dashoffset: -31.416;
+     }
+ }
+ @keyframes bikeSpokesSpin {
+     from { transform: rotate(0); }
+     to { transform: rotate(3turn); }
+ }
+ @keyframes bikeTire {
+     from {
+         animation-timing-function: ease-in;
+         stroke-dashoffset: 56.549;
+         transform: rotate(0);
+     }
+     33% {
+         stroke-dashoffset: 0;
+         transform: rotate(0.33turn);
+     }
+     67% {
+         animation-timing-function: ease-out;
+         stroke-dashoffset: 0;
+         transform: rotate(0.67turn);
+     }
+     to {
+         stroke-dashoffset: -56.549;
+         transform: rotate(1turn);
+     }
+ }
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0); /* Change to match your theme */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+
+ .preloader {
+    animation: fadeOut 2s ease-in-out forwards;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 83px;}
+     .loading-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+        }
+        .loading-bar span {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: var(--primary);
+            animation: loading 3s infinite linear;
+        }
+
+        /* Animations */
+        @keyframes loading {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+     </style>
+</head>
+<body>
+    <div class="preloader">
+        <svg class="bike" viewBox="0 0 48 30" width="48px" height="30px">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+                <g transform="translate(9.5,19)">
+                    <circle class="bike__tire" r="9" stroke-dasharray="56.549 56.549" />
+                    <g class="bike__spokes-spin" stroke-dasharray="31.416 31.416" stroke-dashoffset="-23.562">
+                        <circle class="bike__spokes" r="5" />
+                        <circle class="bike__spokes" r="5" transform="rotate(180,0,0)" />
+                    </g>
+                </g>
+                <g transform="translate(24,19)">
+                    <g class="bike__pedals-spin" stroke-dasharray="25.133 25.133" stroke-dashoffset="-21.991" transform="rotate(67.5,0,0)">
+                        <circle class="bike__pedals" r="4" />
+                        <circle class="bike__pedals" r="4" transform="rotate(180,0,0)" />
+                    </g>
+                </g>
+                <g transform="translate(38.5,19)">
+                    <circle class="bike__tire" r="9" stroke-dasharray="56.549 56.549" />
+                    <g class="bike__spokes-spin" stroke-dasharray="31.416 31.416" stroke-dashoffset="-23.562">
+                        <circle class="bike__spokes" r="5" />
+                        <circle class="bike__spokes" r="5" transform="rotate(180,0,0)" />
+                    </g>
+                </g>
+                <polyline class="bike__seat" points="14 3,18 3" stroke-dasharray="5 5" />
+                <polyline class="bike__body" points="16 3,24 19,9.5 19,18 8,34 7,24 19" stroke-dasharray="79 79" />
+                <path class="bike__handlebars" d="m30,2h6s1,0,1,1-1,1-1,1" stroke-dasharray="10 10" />
+                <polyline class="bike__front" points="32.5 2,38.5 19" stroke-dasharray="19 19" />
+            </g>
+        </svg>
+       
+        <h1 class="logo"id="r" style="margin-top:150px; font-weight: bold; ">GoBike <span>+</span></h1>
+        
+    </div>
+    <div class="app-container">
+        <div class="ju" >
+        <div class="ku">
+        <h1 class="logo"id="r">GoBike <span>+</span></h1>
+        <p class="tagline" id="r">MAKE YOUR <span class="highlight">BIKING</span> SMART AND EASY.</p>
+        </div>
+        <div class="bottom-section" id="slider-container" id="r">
+            <div class="slider-button" id="slider">
+                <i class="fa-solid fa-bolt icon"></i>
+            </div>
+            <span class="button-text">Start Biking</span>
+            <div class="arrows">
+                <span>&gt;</span>
+                <span>&gt;</span>
+                <span>&gt;</span>
+            </div>
+        </div>
+        </div>
+       
+    </div>
+    <script>
+        const slider = document.querySelector(".slider-button");
+const sliderContainer = document.querySelector(".bottom-section");
+
+let isDragging = false;
+let startX, offsetX, maxMove;
+
+// Calculate max move when the page loads
+window.addEventListener("load", () => {
+    maxMove = sliderContainer.offsetWidth - slider.offsetWidth - 10;
+});
+
+slider.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    offsetX = slider.offsetLeft;
+    slider.style.transition = "none"; // Disable transition for smooth dragging
+});
+
+document.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+
+    let moveX = e.touches[0].clientX - startX + offsetX;
+
+    // Keep slider within bounds
+    if (moveX < 5) moveX = 5;
+    if (moveX > maxMove) moveX = maxMove;
+
+    slider.style.left = `${moveX}px`;
+});
+
+document.addEventListener("touchend", () => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    if (parseInt(slider.style.left) >= maxMove - 5) {
+        setTimeout(() => {
+            window.location.href = "yu.html"; // Change this to your actual next page
+        }, 300);
+    } else {
+        slider.style.transition = "left 0.3s ease";
+        slider.style.left = "5px"; // Reset if not fully slid
+    }
+});
+
+
+
+
+    </script>
+    <script>
+       
+        
+        document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        const preloader = document.querySelector(".preloader");
+        if (preloader) {
+            preloader.style.opacity = "0";
+            setTimeout(() => {
+                preloader.style.display = "none";
+            }, 300); // Give time for fade-out effect
+        }
+    }, 900);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        const preloader = document.querySelector(".preloader");
+        const body = document.body;
+
+        if (preloader) {
+            preloader.style.opacity = "0"; // Start fade-out effect
+            setTimeout(() => {
+                preloader.style.display = "none"; // Hide preloader
+                body.setAttribute("transition-style", "in:circle:hesitate"); // Apply animation
+            }, 150); // Wait for fade-out to complete before triggering animation
+        } else {
+            body.setAttribute("transition-style", "in:circle:hesitate"); // Fallback if no preloader
+        }
+    }, 800); // Initial delay before hiding preloader
+});
+
+    </script>
+</body>
+</html>
